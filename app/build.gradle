@@ -1,0 +1,54 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion "26.0.2"
+    defaultConfig {
+        applicationId "com.example.umen.umenin"
+        minSdkVersion 18
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    //gradle多渠道打包设置
+    productFlavors.all{
+        flavor -> flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
+
+    productFlavors {
+        google {}//谷歌市场
+        baidu {}//百度应用中心
+        yingyongbao {}//腾讯应用宝
+        "360" {}//360
+        "91" {}//91助手
+        wandoujia {}//豌豆荚
+        xiaomi {}//小米商城
+        huawei {}//华为
+        meizu {}//魅族
+        sougou {}//搜狗
+        lianxiang {}//联想乐商店
+        zhongxing {}//中兴应用商店
+        umeng {}//友盟
+        uc {}//UC
+        oppo {}//oppo
+        leshi {}//乐视应用商店
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile 'com.android.support:appcompat-v7:26.+'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    testCompile 'junit:junit:4.12'
+    compile project(':PushSDK')
+}
